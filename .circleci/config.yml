@@ -8,14 +8,16 @@ jobs:
             - "f1:95:f4:21:d5:a8:c7:d3:ae:c3:bf:13:1c:a2:7b:4c"
       - checkout
       - run: |
-         docker build -t node-demo-app .
+         docker login -u $DOCKER_USER -p $DOCKER_PASS
+         docker build -t shivmishra/node-demo-app .
+         docker push shivmishra/node-demo-app
   vultr_deploy_shivtest:
     machine: true
     steps:
       - run: |
-          ssh root@45.76.60.106 'docker stop demo && docker rm demo || true && docker rmi -f node-demo-app || true && docker run --name demo -d node-demo-app && exit'
+          ssh root@45.76.60.106 'docker stop demo && docker rm demo || true && docker rmi -f shivmishra/node-demo-app || true && docker run --name demo -d shivmishra/node-demo-app && exit'
       - run: |
-          ssh root@144.202.18.216 'docker stop demo && docker rm demo || true && docker rmi -f node-demo-app || true && docker run --name demo -d node-demo-app && exit'
+          ssh root@144.202.18.216 'docker stop demo && docker rm demo || true && docker rmi -f shivmishra/node-demo-app || true && docker run --name demo -d shivmishra/node-demo-app && exit'
 workflows:
   version: 2
   rolling_update:
