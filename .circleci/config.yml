@@ -5,9 +5,7 @@ jobs:
     steps:
       - checkout
       - run: |
-#         docker login -u $DOCKER_USER -p $DOCKER_PASS
          docker build -t node-demo-app .
-#         docker push moddio/gs
   vultr_deploy_shivtest:
     machine: true
     steps:
