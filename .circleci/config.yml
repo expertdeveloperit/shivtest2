@@ -7,11 +7,11 @@ jobs:
       - run: |
          docker build -t node-demo-app .
   vultr_deploy_shivtest:
-    machine: true
     steps:
       - add_ssh_keys:
      fingerprints:
        - "f1:95:f4:21:d5:a8:c7:d3:ae:c3:bf:13:1c:a2:7b:4c"
+    machine: true
       - run: |
           ssh root@45.76.60.106 'docker stop demo && docker rm demo || true && docker rmi -f node-demo-app || true && docker run --name demo -d node-demo-app && exit'
       - run: |
